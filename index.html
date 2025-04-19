@@ -743,7 +743,7 @@
         selectionPage.style.display = 'flex';
 
     </script>
-</body><script>
+<script>
   async function verifyFinalAccess() {
     const params = new URLSearchParams(window.location.search);
     const ts = params.get("ts");
@@ -751,7 +751,7 @@
     const secret = "AppSecretSalt";
 
     if (!ts || !token || Date.now() - parseInt(ts) > 5 * 60 * 1000) {
-      document.body.innerHTML = "<h2>Access Expired</h2>";
+      document.body.innerHTML = "<h2 style='text-align:center;margin-top:20%;font-family:sans-serif;color:#c00;'>Access Expired</h2>";
       return;
     }
 
@@ -761,7 +761,7 @@
     const expectedToken = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
     if (expectedToken !== token) {
-      document.body.innerHTML = "<h2>Access Denied</h2>";
+      document.body.innerHTML = "<h2 style='text-align:center;margin-top:20%;font-family:sans-serif;color:#c00;'>Access Denied</h2>";
     } else {
       document.body.style.display = 'block';
     }
@@ -769,6 +769,6 @@
 
   document.body.style.display = 'none';
   verifyFinalAccess();
-</script></body>
+</script>
 </body>
 </html>
