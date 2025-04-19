@@ -338,7 +338,7 @@
 </head>
 <body>
     <!-- Selection Page (Initially Visible) -->
-    <div class="selection-page" id="selectionPage">
+    <div class="selection-page" id="selectionPage" style="display: none;">
         <div class="title">Choose your side</div>
         <div class="side-selection">
             <div id="selectX"><i class="fas fa-times"></i></div>
@@ -743,7 +743,8 @@
         selectionPage.style.display = 'flex';
 
     </script>
-<script>
+    
+    <script>
   async function verifyFinalAccess() {
     const params = new URLSearchParams(window.location.search);
     const ts = params.get("ts");
@@ -763,11 +764,10 @@
     if (expectedToken !== token) {
       document.body.innerHTML = "<h2 style='text-align:center;margin-top:20%;font-family:sans-serif;color:#c00;'>Access Denied</h2>";
     } else {
-      document.body.style.display = 'block';
+      document.getElementById("selectionPage").style.display = "flex";
     }
   }
 
-  document.body.style.display = 'none';
   verifyFinalAccess();
 </script>
 </body>
