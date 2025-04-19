@@ -743,5 +743,32 @@
         selectionPage.style.display = 'flex';
 
     </script>
+</body><script>
+  async function verifyFinalAccess() {
+    const params = new URLSearchParams(window.location.search);
+    const ts = params.get("ts");
+    const token = params.get("token");
+    const secret = "AppSecretSalt";
+
+    if (!ts || !token || Date.now() - parseInt(ts) > 5 * 60 * 1000) {
+      document.body.innerHTML = "<h2>Access Expired</h2>";
+      return;
+    }
+
+    const raw = ts + secret;
+    const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw));
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const expectedToken = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    if (expectedToken !== token) {
+      document.body.innerHTML = "<h2>Access Denied</h2>";
+    } else {
+      document.body.style.display = 'block';
+    }
+  }
+
+  document.body.style.display = 'none';
+  verifyFinalAccess();
+</script></body>
 </body>
 </html>
